@@ -25,8 +25,8 @@ y_eval = dfeval.pop('survived')#tf.cast(testing_df['Success'].values, tf.int32)
 
 dftrain = Algorithms.main() #pd.read_csv('https://storage.googleapis.com/tf-datasets/titanic/train.csv')
 dfeval = Algorithms.getTest() #pd.read_csv('https://storage.googleapis.com/tf-datasets/titanic/eval.csv')
-#y_train = dftrain.pop('Success')
-#y_eval = dfeval.pop('Success')
+y_train = dftrain.pop('Success')
+y_eval = dfeval.pop('Success')
 
 print(dftrain)
 #print(y_train)
@@ -128,8 +128,8 @@ def make_prediction_input_fn(df):
   )
 
 
-#train_input_fn = make_input_fn(dftrain, y_train)
-#eval_input_fn = make_input_fn(dfeval, y_eval, shuffle=False, n_epochs=10)
+train_input_fn = make_input_fn(dftrain, y_train)
+eval_input_fn = make_input_fn(dfeval, y_eval, shuffle=False, n_epochs=10)
 
 print(feature_columns)
 
@@ -137,7 +137,7 @@ feature_columns2 = tf.feature_column.numeric_column('ToGo', dtype=tf.float32)
 linear_est = tf.estimator.LinearClassifier(feature_columns)
 
 dir = os.listdir("modelsAndCheckpoints")
-
+'''
 if not os.path.exists("modelsAndCheckpoints/linear_est"):
     linear_est.train(make_train_input_fn(dftrain, num_epochs=10))
     #linear_est.train(train_input_fn, max_steps=100)
@@ -169,8 +169,6 @@ if not os.path.exists("modelsAndCheckpoints/linear_est"):
         # of regression model.
         newPreds.append(np.argmax(pred["probabilities"]))
     print(newPreds)
-
-
 '''
 predDicts = list(linear_est.predict(make_prediction_input_fn(dfeval)))
 preds = []
@@ -202,9 +200,9 @@ est.train(train_input_fn, max_steps=100)
 
 
 
-train_hooks_list = [logging_hook] # implemented by yourself
-train_spec = tf.estimator.TrainSpec(train_input_fn, hooks=train_hooks_list)  # implemented by yourself
-eval_spec = tf.estimator.train_and_evaluate(est, train_spec)
+#train_hooks_list = [logging_hook] # implemented by yourself
+#train_spec = tf.estimator.TrainSpec(train_input_fn, hooks=train_hooks_list)  # implemented by yourself
+#eval_spec = tf.estimator.train_and_evaluate(est, train_spec)
 
 
 # Eval.
@@ -235,4 +233,3 @@ plt.show()
 
 #print(train_result)
 
-'''
