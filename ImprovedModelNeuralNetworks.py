@@ -33,13 +33,15 @@ testX = testX.reshape((testX.shape[0], 6))
 trainX = trainX.astype("float32")
 testX = testX.astype("float32")
 
-trainX = trainX[0:20,:]
+#trainX = trainX[0:20,:]
+
 
 lb = LabelBinarizer()
 trainY = lb.fit_transform(trainY)
 testY = lb.transform(testY)
 
-trainY = trainY[0:20,:]
+#trainY = trainY[0:20,:]
+
 
 
 model = Sequential()
@@ -74,6 +76,13 @@ print(classification_report(testY, predictions.argmax(axis=1), target_names=[str
 
 print("Train X", trainX)
 print("Test X", testX)
+
+print(model.summary())
+
+input_tensor = model.inputs[0]
+output_tensor = model.outputs[0]
+print("Inputs: "+str(input_tensor))
+print("Outputs: "+str(output_tensor))
 
 #model.save("modelsAndCheckpoints")
 
