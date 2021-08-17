@@ -31,6 +31,9 @@ Install python packages with appropriate versions. We used python 3.9.6
 ```
 pip install -r PolygenceProject/requirements.txt
 ```
-
+Run model 
+```
+python ImprovedModelNeuralNetworks.py
+```
 
 
