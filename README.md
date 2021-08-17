@@ -14,7 +14,7 @@ git init
 
 Pull the code from this repository
 ```
-git pull git@github.com:shourikb/PolygenceProject.git
+git clone https://github.com/shourikb/PolygenceProject.git
 ```
 
 Create a python virtual environment
@@ -24,7 +24,7 @@ virtualenv -p python3 venv
 
 Activate the virtual environment
 ```
-source venv/bin/activate
+source venv/Scripts/activate
 ```
 
 Install python packages with appropriate versions. We used python 3.9.6
