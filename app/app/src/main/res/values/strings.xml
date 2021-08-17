@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Polygence Project</string>
+    <string name="edit_quarter">Enter the quarter</string>
+    <string name="edit_time">Enter the time remaining in seconds</string>
+    <string name="edit_dist">Enter the distance to the next first down</string>
+    <string name="edit_down">Enter the current down</string>
+    <string name="edit_yardline">Enter the current yard line you are at</string>
+    <string name="edit_playtype">Enter the name of your QB (optional)</string>
+    <string name="button_predict">Predict</string>
+    <string name="button_clear">Clear</string>
+</resources>

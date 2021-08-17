@@ -1,0 +1,6 @@
+Quarter
+Time
+ToGo
+Down
+YardLine
+PType
