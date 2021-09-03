@@ -15,8 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -25,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String MODEL_FILE = "file:///android_asset/frozen_graph.pb";
     private static final String LABEL_FILE = "file:///android_asset/label_strings.txt";
+    private static final String QB_Success = "file:///android_asset/QBorder10.txt";
 
     // not sure if I need these two since my model doesn't have a name
     private static final String INPUT_NAME = "x";
@@ -149,10 +155,65 @@ public class MainActivity extends AppCompatActivity {
 
         float rushSuccess = classifier.predictPlay(runData)[1];
         float passSuccess = classifier.predictPlay(passData)[1];
+
+        String nameOfQb = qbName.getText().toString();
+        int rank = 1;
+        float affect = 0.0f;
+        if(!nameOfQb.equals("")) {
+            String actualFilename = QB_Success.split("file:///android_asset/")[1];
+            BufferedReader br = null;
+            try {
+                br = new BufferedReader(new InputStreamReader(getAssets().open(actualFilename)));
+            } catch (IOException e) { }
+            String line;
+            try {
+                while ((line = br.readLine()) != null) {
+                    if(line.equals(nameOfQb) || rank >= 33) break;
+                    rank++;
+                }
+                br.close();
+            } catch (IOException e) {  }
+        }
+
+        if(rank>32) {
+            affect = -0.1f;
+        } else if(rank>25) {
+            affect = 0.05f;
+        } else if(rank>20) {
+            affect = 0.025f;
+        } else if(rank >15) {
+            affect = 0.0f;
+        } else if(rank > 10) {
+            affect = 0.025f;
+        } else if(rank > 5) {
+            affect = 0.05f;
+        } else {
+            affect = 0.1f;
+        }
+
+        passSuccess += affect;
+
+        /*
+        File qb = new File(QB_Success);
+        Scanner s = null;
+        String name = qbName.getText().toString();
+        if(!name.equals("")) {
+            try {
+                s = new Scanner(qb);
+            } catch (IOException e) { }
+            int lineNumber = 1;
+            while (s.hasNextLine()) {
+                String qName = s.next();
+                qbName.setText(qName);
+            }
+        }
+        */
+
+
         if(data[3]==4) {
             float max = rushSuccess*2;
             float otherwise = rushSuccess*2;
-            if(passSuccess*2>max) {
+            if((passSuccess+affect)*2>max) {
                 max = passSuccess*2;
                 otherwise = passSuccess*2;
             }
