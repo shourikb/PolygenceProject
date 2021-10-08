@@ -36,4 +36,6 @@ Run model
 python ImprovedModelNeuralNetworks.py
 ```
 
+You can run the app by cloning the repository and opening the project with Android Studio
+
 
