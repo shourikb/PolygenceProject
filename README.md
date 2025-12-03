@@ -1,6 +1,6 @@
 # NFL Predicition
 
-TODO: write a few sentences about the project and link to wherever your write-up/blog will be
+tinyurl.com/nflpredictor
 
 ## Setup Model Details
 
